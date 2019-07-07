@@ -164,18 +164,20 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 
 
 \begin{frame}{Challenges}
+	\only<1>{\vspace{-2ex}}
  $\alg(f,\varepsilon) = \app(f,n^*(f,\varepsilon))$ is \alert{algorithm} satisfying  
 	$\norm[\cg]{\sol(f) - \alg(f,\varepsilon)} \le \varepsilon$ for all $f \in \cc$
 	
-	\vspace{-2ex}
+	\vspace{-2ex} 
 \begin{itemize}
 \item What should $\cc$ be?
 \only<2->{\smallscoop  \hspace{-6.5ex}\raisebox{-1.5ex}{\color{red}\fontsize{40}{48}\selectfont $\times$} or \smallcone }
 \only<1>{
 \begin{itemize}
     \item $\smallscoop$ of radius $R$: $\cb_{R} : = \{ f \in \cf : \norm[\cf]{f} \le R \}$
-    \item Alternative is $\smallcone$ and to bound $ \norm[\cf]{f}$ or equivalent\footfullcite{HicEtal17a,KunEtal19a,DinHic20a} \\
+    \item Alternative is non-convex, symmetric $\smallcone$ and to bound $ \norm[\cf]{f}$ or equivalent\footfullcite{HicEtal17a,KunEtal19a,DinHic20a} \\
 \end{itemize}
+\vspace{-10ex}
 }
 
 \item<2-> What is the information cost of $\alg(f,\varepsilon)$? 
@@ -234,23 +236,22 @@ $\app(f,n_j) = \sum_{i=1}^{n_j} \hf(\vk_i) v_{\vk_i}$
 \item Initialize:		
      $j \leftarrow 0$
 \item Repeat:
- $j \leftarrow j + 1$, compute $a \sigma_j(f) 
-	\norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty} }$, until $\alert{a \sigma_j(f) 
-	\norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty} } \le \varepsilon}$
+ $j \leftarrow j + 1$, compute \alert{$a \sigma_j(f) 
+	\norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty} }$}, until $\alert{\le \varepsilon}$
 \item Return: $\alg(f,\varepsilon) = \app(f,n_{j})$
 \end{itemize}
 \end{frame}
 
 \section{Information Cost}
 \begin{frame}{Information Cost}
-\vspace{-5mm}Based on the stopping criteria, the \alert{computation cost} of $\alg$ is:
+\vspace{-5mm}Based on the stopping criteria, the \alert{information cost} of $\alg$ is:
 \[\cost(\alg,f,\varepsilon)=n_{j^*},\]
 where 
 \[ 
 j^* = \min\left \{ j \in \naturals : a \sigma_j(f) 
 	\norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty} }  \le \varepsilon  \right\}.
 \]
-The \alert{upper bound} of the cost is
+\alert{Upper bound} on cost:
 \[
     \cost(\alg,\cc_{\lambda,a,b},\varepsilon,R) 
 = \max\limits_{f \in \cc_{\lambda,a,b} \cap \cb_{R}} \cost(\alg,f,\varepsilon)
@@ -265,7 +266,7 @@ where
 \section{Complexity}
 \begin{frame}{Complexity of the Problem}
 \vspace{-5mm}
-To obtain optimality of $\alg$, we need additional technical assumptions about the $\lambda_{\vk_i}$ and $n_j$:
+To obtain optimality of $\alg$, need additional technical assumptions about the $\lambda_{\vk_i}$ and $n_j$:
 \begin{itemize}
 \vspace{-5mm}
 \item $\Lambda_j =\norm[\frac{\rho\tau}{\rho-\tau}]{(\lambda_{\vk})_{\vk \in \mathcal{K}_j}}$ decay steadily, i.e.
@@ -291,19 +292,24 @@ where\vspace{-3mm}
 The \alert{upper bound} of the cost is
 \[
     \cost(\alg,\cc_{\vlambda,a,b},\varepsilon,R) 
-\le  n_{j^\dagger}, 
+\le  n_{j^\dagger}
 \]
 where\vspace{-3mm}
 \[j^\dagger = \min \left \{j \in \naturals : \norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty}} \le \frac{b\varepsilon}{Ra^2}  \left(\frac{1-b^{j\rho}}{1-b^\rho} 
-			\right)^{\frac{1}{\rho}} \right\}.\]
-The complexity is
+			\right)^{\frac{1}{\rho}} \right\}
+			\]
+Lower bound on  complexity via \alert{fooling functions}
 \[\comp(\ca(\cc_{\vlambda,a,b}),\varepsilon,R) > n_{j^\ddagger},\]
 where\vspace{-3mm}
 \[	j^\ddagger =\max \left \{j \in \naturals : b^{j+1} \Lambda_{j+1} \le \frac{2 a \alpha \alert{\varepsilon}}{\alert{R}(a-1)(1-b^\rho)^{\frac{1}{\rho}}}  \left[1+ \left(\frac{1}{S_2}-1\right)S_1^\rho 
-			\right]^{\frac{1}{\rho}} \right\}. \]
-There exists some $\omega$  such that\footfullcite{DinEtal20a}\vspace{-2mm}
-\[\cost(\alg,\cc_{\vlambda,a,b},\varepsilon,R) \le  \comp(\ca(\cc_{\vlambda,a,b}),\omega\varepsilon,R),\]
-i.e. $\alg$ is \alert{essentially optimal}.
+			\right]^{\frac{1}{\rho}} \right\}
+			\]
+There exists some explicit $\omega$  such that\footfullcite{DinEtal20a}\vspace{-2mm}
+\[\cost(\alg,\cc_{\vlambda,a,b},\varepsilon,R) \le  \comp(\ca(\cc_{\vlambda,a,b}),\omega\varepsilon,R)
+\]
+
+\vspace{-5ex}
+i.e. $\alg$ is \alert{essentially optimal}
 \end{frame}
 
 
@@ -318,13 +324,13 @@ Denote $\rho' := \frac{\rho\tau}{\rho-\tau}$. Here only consider $\rho' = \infty
     
 If there exist $i_0 \in \naturals$ and $\eta > 0$ such that
  \[
-    \sup_{d\in\naturals} \sum_{i=i_0}^\infty \lambda_{d,\vk_i}^\eta < \infty.
+    \sup_{d\in\naturals} \sum_{i=i_0}^\infty \lambda_{d,\vk_i}^\eta < \infty
 \]
 \item Polynomial Tractability:\\ 
 
 If there exist $\eta_1,\eta_2 \ge 0, \eta_3, K >0$
 \[
-    \sup_{d\in\naturals} d^{-\eta_1}\, \sum_{i=\lceil K d^{\eta_2} \rceil}^\infty \lambda_{d,\vk_i}^{\eta_3}  < \infty.
+    \sup_{d\in\naturals} d^{-\eta_1}\, \sum_{i=\lceil K d^{\eta_2} \rceil}^\infty \lambda_{d,\vk_i}^{\eta_3}  < \infty
 \]
 \end{itemize}
 
