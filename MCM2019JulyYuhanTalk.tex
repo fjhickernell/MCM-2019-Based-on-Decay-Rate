@@ -98,12 +98,10 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \begin{frame}{Outline}
 \begin{itemize}
     \item Introduction
-    \item Optimal Adaptive Algorithm
-    \begin{itemize}
-        \item Computational Cost
+    \item Adaptive Algorithm
+        \item Information Cost
         \item Complexity
         \item Tractability
-    \end{itemize}
     \item Future Work
 \end{itemize}
 \end{frame}
@@ -112,66 +110,105 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \begin{frame}{Problem Setting}
 \begin{itemize}
 \vspace{-5mm}
-	\item $\sol : \cf \to \cg$ is linear \alert{solution} operator
+	\item $\sol : \cf \to \cg$ is linear \alert{solution} operator on series spaces
 	\begin{align*}
-	\cf &:= \left \{ f = \sum_{i=1}^\infty \hf(\vk_i) u_{\vk_i} : \norm[\cf]{f} := \norm[\rho]{\left(\frac{\bigabs{\hf(\vk_i)}}{\lambda_{\vk_i}} \right)_{i =1}^\infty} \right \},\\
+	\cf &:= \left \{ f = \sum_{i=1}^\infty \hf(\vk_i) u_{\vk_i} : \norm[\cf]{f} := \norm[\rho]{\left(\frac{\bigabs{\hf(\vk_i)}}{\lambda_{\vk_i}} \right)_{i =1}^\infty} \right \}\\
  \lambda_{\vk_1} & \ge \lambda_{\vk_2} \ge \cdots > 0, \qquad 
-		\alert{\vlambda \text{ affects convergence rate  tractability}},\\
-		\cg &: = \biggl \{ g = \sum_{i=1}^\infty \hg(\vk_i) v_{\vk_i} : \norm[\cg]{g} := \bignorm[\tau]{\hg}\biggr \}, \qquad v_{\vk} = \sol(u_{\vk})
+		\alert{\vlambda \text{ affects convergence rate  and tractability}}\\
+		\cg &: = \biggl \{ g = \sum_{i=1}^\infty \hg(\vk_i) v_{\vk_i} : \norm[\cg]{g} := \bignorm[\tau]{\hg}\biggr \}, \qquad v_{\vk} = \sol(u_{\vk}), \quad \tau \le \rho  \\
+		\sol(f) &= \sum_{i=1}^\infty \hf(\vk_i) v_{\vk_i}
 \end{align*}
+\vspace{-2ex}
 	\item $\app(f,n) = \sum_{i=1}^n \hf(\vk_i) v_{\vk_i}$ is \alert{approximation} \\
-	\qquad $\norm[\cg]{\sol(f) - \app(f,n)} \le \norm[\cf \to \cg]{\sol - \app(\cdot,n)} \norm[\cf]{f}$
+	\qquad $\norm[\cg]{\sol(f) - \app(f,n)} \le \norm[\cf \to \cg]{\sol - \app(\cdot,n)} \alert{\norm[\cf]{f}}$
 	\item $\alg(f,\varepsilon) = \app(f,n^*(f,\varepsilon))$ is \alert{algorithm} satisfying  
 	$\norm[\cg]{\sol(f) - \alg(f,\varepsilon)} \le \varepsilon$
 \end{itemize}
 	
 \end{frame}
 
+
+\begin{frame}{Legendre and Chebyshev Bases for Function Approximation}
+	\vspace{-3ex}
+	\begin{tabular}{>{\centering}m{0.18\textwidth}>{\centering}m{0.18\textwidth}>{\centering}m{0.18\textwidth}>{\centering}m{0.18\textwidth}>{\centering}m{0.18\textwidth}}
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_0.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_1.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_3.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_4.png} 
+		\tabularnewline[-7ex]
+		Legendre
+		\tabularnewline
+		\tabularnewline
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_1_1.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_1_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_1_3.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_2_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Legendre_Degree_2_3.png} 
+		\tabularnewline[0ex]
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_0.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_1.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_3.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_4.png} 
+		\tabularnewline[-7ex]
+		Chebyshev \tabularnewline
+		\tabularnewline
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_1_1.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_1_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_1_3.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_2_2.png}  &
+		\includegraphics[width =0.18\textwidth]{ProgramsImages/Chebyshev_Degree_2_3.png} 
+	\end{tabular}
+\end{frame}
+
+
 \begin{frame}{Challenges}
  $\alg(f,\varepsilon) = \app(f,n^*(f,\varepsilon))$ is \alert{algorithm} satisfying  
-	$\norm[\cg]{\sol(f) - \alg(f,\varepsilon)} \le \varepsilon$\\
+	$\norm[\cg]{\sol(f) - \alg(f,\varepsilon)} \le \varepsilon$ for all $f \in \cc$
+	
+	\vspace{-2ex}
 \begin{itemize}
-\item If $\alg$ works for all $f$ belong to a set $\cc$, what should $\cc$ be?
-\only<3,4->{\smallscoop \only<4->{ \hspace{-6.5ex}\raisebox{-1.5ex}{\color{red}\fontsize{40}{48}\selectfont $\times$}} or \smallcone }
-\only<2>{
+\item What should $\cc$ be?
+\only<2->{\smallscoop  \hspace{-6.5ex}\raisebox{-1.5ex}{\color{red}\fontsize{40}{48}\selectfont $\times$} or \smallcone }
+\only<1>{
 \begin{itemize}
     \item $\smallscoop$ of radius $R$: $\cb_{R} : = \{ f \in \cf : \norm[\cf]{f} \le R \}$
     \item Alternative is $\smallcone$ and to bound $ \norm[\cf]{f}$ or equivalent\footfullcite{HicEtal17a,KunEtal19a,DinHic20a} \\
 \end{itemize}
 }
 
-\item Given $f,\varepsilon$, what's the cost of $\alg$? 
-\only<5->{\[\cost(\alg,f,\varepsilon) : = n^*(f, \varepsilon), \qquad
+\item<2-> What is the information cost of $\alg(f,\varepsilon)$? 
+\[\cost(\alg,f,\varepsilon) : = n^*(f, \varepsilon), \qquad
      \cost(\alg,\cc,\varepsilon,R)
 := \max\limits_{f \in \cc \cap \cb_{R}}\cost(\alg,f,\varepsilon)
-\]}
-\item Is the cost essentially as small as possible?\\
-\only<6>{
-Denote
-$\ca(\cc)$ as a set of all possible algorithms that satisfy the error criterion for all $f \in \cc.$
-Define
+\]
+\only<2>{\hspace{4cm} $\alg$ does not know which \smallscoop $f$ lies in}
+\item<3-> Is the cost essentially as small as possible?\\
+$\ca(\cc)$ denotes the set of all algorithms  satisfying the error criterion for all $f \in \cc.$
 \[\comp(\ca(\cc),\varepsilon,R) := \min\limits_{\alg \in \ca(\cc)}\cost(\alg,\cc, \varepsilon,R)\]
 $\cost(\alg,\cc,\varepsilon,R) $  \alert{essentially no worse than}  $\comp(\ca(\cc),\varepsilon,R)$ \\
 \qquad 
 if $\exists \omega> 0,$ such that
 $\cost(\alg,\cc,\varepsilon,R) \le  \comp(\ca(\cc),\omega\varepsilon,R).$
-}
-\item Does the cost depend nicely on $d$?
+
+\item<4> Does the cost depend nicely on $d$?
 \end{itemize}
 
 \end{frame}
 
 \section{Algorithm}
 
-\begin{frame}{Error Bound Based on Cone of Nice Functions \footfullcite{DinEtal20a}}
+\begin{frame}{Error Bound for Cone of Nice Functions \footfullcite{DinEtal20a}}
 \begin{itemize}
 \vspace{-5mm}
-\item A Cone of Nice Functions
+\item A Cone of Nice Functions 
     \begin{align*}
-    \mathcal{K}_j&:= \{\vk_{n_{j-1}+1}, \ldots, \vk_{n_j}\}, \qquad 	n_{-1} =0,  \quad \text{for } j \in \mathbb{N}_0.\\
-    \sigma_j(f) &: =\norm[\rho]{\biggl(\frac{\hf(\vk)}{\lambda_{\vk}} \biggr)_{\vk \in \mathcal{K}_j}},\\
+    \mathcal{K}_j&:= \{\vk_{n_{j-1}+1}, \ldots, \vk_{n_j}\}, \qquad 	n_{-1} =0,  \quad \text{for } j \in \mathbb{N}_0\\
+    \alert{\text{norm of part of }f} \quad \sigma_j(f) &: =\norm[\rho]{\biggl(\frac{\hf(\vk)}{\lambda_{\vk}} \biggr)_{\vk \in \mathcal{K}_j}}, \qquad \lambda_{k_1} \ge \lambda_{k_2} \ge \cdots \\
 	\cc_{\lambda,a,b} &: = \left\{f \in \cf :  	\sigma_{j+r}(f) \le a b^{r}\sigma_j(f) \quad \forall j,r \in \mathbb{N} \right\}, \qquad
-	b<1<a.
+	b<1<a \\
+	& \hspace{2cm} \text{\alert{sums of Fourier coefficients decay steadlily}}
 	\end{align*}
 \item Data Driven Error Bound 
 \begin{align*}
@@ -187,9 +224,10 @@ Algorithm:
 \begin{itemize}
 \vspace{-5mm}
 \item Parameters:\\
-$\cf$, $\cg$, the weights $\vlambda$;\\
-increasing sequence of non-negative integers, $(n_j)_{j\ge 0}$;\\
-inflation factor, $a$; decay rate, $b$;\\
+$\cf$, $\cg$, the weights $\vlambda$\\
+$\cc_{\lambda,a,b}$ defined by increasing sequence of non-negative integers, $(n_j)_{j\ge 0}$  \\
+\qquad \qquad 
+inflation factor, $a$; decay rate, $b$ 
 $\app(f,n_j) = \sum_{i=1}^{n_j} \hf(\vk_i) v_{\vk_i}$
 \item Input: a black-box function, $f$; an absolute error tolerance,
 		$\varepsilon>0$
@@ -203,7 +241,8 @@ $\app(f,n_j) = \sum_{i=1}^{n_j} \hf(\vk_i) v_{\vk_i}$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Computational Cost}
+\section{Information Cost}
+\begin{frame}{Information Cost}
 \vspace{-5mm}Based on the stopping criteria, the \alert{computation cost} of $\alg$ is:
 \[\cost(\alg,f,\varepsilon)=n_{j^*},\]
 where 
@@ -218,15 +257,15 @@ The \alert{upper bound} of the cost is
 \le  n_{j^\dagger}, 
 \]
 where
-\[j^\dagger = \min \left \{j \in \naturals : \norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty}} \le \frac{b\varepsilon}{Ra^2}  \left(\frac{1-b^{j\rho}}{1-b^\rho} 
+\[j^\dagger = \min \left \{j \in \naturals : \norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty}} \le \frac{b\alert{\varepsilon}}{\alert{R}a^2}  \left(\frac{1-b^{j\rho}}{1-b^\rho} 
 			\right)^{\frac{1}{\rho}} \right\}.\]
 
 \end{frame}
 
-
-\begin{frame}{Complexity}
+\section{Complexity}
+\begin{frame}{Complexity of the Problem}
 \vspace{-5mm}
-To obtain optimality of $\alg$, we need serveral assumptions:
+To obtain optimality of $\alg$, we need additional technical assumptions about the $\lambda_{\vk_i}$ and $n_j$:
 \begin{itemize}
 \vspace{-5mm}
 \item $\Lambda_j =\norm[\frac{\rho\tau}{\rho-\tau}]{(\lambda_{\vk})_{\vk \in \mathcal{K}_j}}$ decay steadily, i.e.
@@ -239,38 +278,40 @@ $\sup_{j \in \naturals} \frac{\lambda_{\vk_{n_{j-1}+1}}}{\lambda_{\vk_{n_{j}}}} 
 \[
 \inf_{j \in \naturals} \ \min_{\cj  \, : \, \card(\cj) \le n_j} \ \max_{0 \le l \le j+1} \frac{\card(\ck_l \setminus \cj)}{\card(\ck_l)} \ge S_2 > 0.\]
 \end{itemize}
-\vspace{-3mm}Thus\vspace{-3mm}
-\[\comp(\ca(\cc_{\lambda,a,b}),\varepsilon,R) > n_{j^\ddagger},\]
+\vspace{-3mm}Then\vspace{-3mm}
+\[\comp(\ca(\cc_{\vlambda,a,b}),\varepsilon,R) > n_{j^\ddagger},\]
 where\vspace{-3mm}
-\[	j^\ddagger =\max \left \{j \in \naturals : b^{j+1} \Lambda_{j+1} \le \frac{2 a \alpha \varepsilon}{R(a-1)(1-b^\rho)^{\frac{1}{\rho}}}  \left[1+ \left(\frac{1}{S_2}-1\right)S_1^\rho 
+\[	j^\ddagger =\max \left \{j \in \naturals : b^{j+1} \Lambda_{j+1} \le \frac{2 a \alpha \alert{\varepsilon}}{\alert{R}(a-1)(1-b^\rho)^{\frac{1}{\rho}}}  \left[1+ \left(\frac{1}{S_2}-1\right)S_1^\rho 
 			\right]^{\frac{1}{\rho}} \right\}. \]
 \end{frame}
 
 
-\begin{frame}{Optimality}
+\begin{frame}{Optimality of $\alg$}
 \vspace{-5mm}
 The \alert{upper bound} of the cost is
 \[
-    \cost(\alg,\cc_{\lambda,a,b},\varepsilon,R) 
+    \cost(\alg,\cc_{\vlambda,a,b},\varepsilon,R) 
 \le  n_{j^\dagger}, 
 \]
 where\vspace{-3mm}
 \[j^\dagger = \min \left \{j \in \naturals : \norm[\tau]{(b^r \Lambda_{j+r})_{r=1}^{\infty}} \le \frac{b\varepsilon}{Ra^2}  \left(\frac{1-b^{j\rho}}{1-b^\rho} 
 			\right)^{\frac{1}{\rho}} \right\}.\]
 The complexity is
-\[\comp(\ca(\cc_{\lambda,a,b}),\varepsilon,R) > n_{j^\ddagger},\]
+\[\comp(\ca(\cc_{\vlambda,a,b}),\varepsilon,R) > n_{j^\ddagger},\]
 where\vspace{-3mm}
-\[	j^\ddagger =\max \left \{j \in \naturals : b^{j+1} \Lambda_{j+1} \le \frac{2 a \alpha \varepsilon}{R(a-1)(1-b^\rho)^{\frac{1}{\rho}}}  \left[1+ \left(\frac{1}{S_2}-1\right)S_1^\rho 
+\[	j^\ddagger =\max \left \{j \in \naturals : b^{j+1} \Lambda_{j+1} \le \frac{2 a \alpha \alert{\varepsilon}}{\alert{R}(a-1)(1-b^\rho)^{\frac{1}{\rho}}}  \left[1+ \left(\frac{1}{S_2}-1\right)S_1^\rho 
 			\right]^{\frac{1}{\rho}} \right\}. \]
-There exists some $\omega$ in \cite{DinEtal20a} such that\vspace{-2mm}
-\[\cost(\alg,\cc_{\lambda,a,b},\varepsilon,R) \le  \comp(\ca(\cc_{\lambda,a,b}),\omega\varepsilon,R),\]
+There exists some $\omega$  such that\footfullcite{DinEtal20a}\vspace{-2mm}
+\[\cost(\alg,\cc_{\vlambda,a,b},\varepsilon,R) \le  \comp(\ca(\cc_{\vlambda,a,b}),\omega\varepsilon,R),\]
 i.e. $\alg$ is \alert{essentially optimal}.
 \end{frame}
 
 
+\section{Tractability}
+
 \begin{frame}{Sufficient Conditions for Tractability}
 \vspace{-3mm}
-Denote $\rho' := \frac{\rho\tau}{\rho-\tau}$. Here only consider $\rho' = \infty.$ Case of $\rho' < \infty$ can be found in \cite{DinEtal20a}.
+Denote $\rho' := \frac{\rho\tau}{\rho-\tau}$. Here only consider $\rho' = \infty.$ Case of $\rho' < \infty$ can be found in \footfullcite{DinEtal20a}.
 \begin{itemize}
 \vspace{-3mm}
     \item Strong Polynomial Tractability:\\
@@ -286,7 +327,9 @@ If there exist $\eta_1,\eta_2 \ge 0, \eta_3, K >0$
     \sup_{d\in\naturals} d^{-\eta_1}\, \sum_{i=\lceil K d^{\eta_2} \rceil}^\infty \lambda_{d,\vk_i}^{\eta_3}  < \infty.
 \]
 \end{itemize}
-\only<2>{Theses conditions may be \alert{too strong}.} 
+
+\vspace{-2ex}
+These sufficient conditions may be \alert{too strong}.
 
 \end{frame}
 
@@ -296,7 +339,7 @@ If there exist $\eta_1,\eta_2 \ge 0, \eta_3, K >0$
 \begin{itemize}
     \item Necessary conditions and matching up sufficient conditions for \alert{tractability}
     \vspace{5mm}
-    \item \alert{Solvability, Optimality, Tractability} when using function values instead of coefficients
+    \item Solvability, optimality, and tractability when using \alert{function values} instead of coefficients
 \end{itemize}
 
 
